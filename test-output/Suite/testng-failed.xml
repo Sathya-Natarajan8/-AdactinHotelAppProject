@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <parameter name="url" value="https://adactinhotelapp.com/"/>
+  <listeners>
+    <listener class-name="utils.ListenerClass"/>
+  </listeners>
+  <test thread-count="5" name="ChromeTest(failed)">
+    <parameter name="browser" value="Chrome"/>
+    <classes>
+      <class name="tests.TC003_SearchFunctionalityTest">
+        <methods>
+          <include name="testSearchHotel" invocation-numbers="0 1 2"/>
+          <include name="tearDown"/>
+          <include name="lauchBrowser"/>
+          <include name="setup"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- tests.TC003_SearchFunctionalityTest -->
+      <class name="tests.TC001_RegistrationTest">
+        <methods>
+          <include name="setup"/>
+          <include name="testUserRegistrationAndEmailVerification" invocation-numbers="0"/>
+          <include name="lauchBrowser"/>
+          <include name="close"/>
+        </methods>
+      </class> <!-- tests.TC001_RegistrationTest -->
+      <class name="tests.TC002_LoginPageTest">
+        <methods>
+          <include name="setup"/>
+          <include name="lauchBrowser"/>
+          <include name="close"/>
+          <include name="testUserLogin" invocation-numbers="1"/>
+        </methods>
+      </class> <!-- tests.TC002_LoginPageTest -->
+      <class name="tests.TC004_SelectHotelTest">
+        <methods>
+          <include name="setup"/>
+          <include name="lauchBrowser"/>
+          <include name="close"/>
+          <include name="testSelectHotel"/>
+        </methods>
+      </class> <!-- tests.TC004_SelectHotelTest -->
+      <class name="tests.TC005_BookHotelTest">
+        <methods>
+          <include name="lauchBrowser"/>
+          <include name="testBookHotel"/>
+          <include name="close"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- tests.TC005_BookHotelTest -->
+    </classes>
+  </test> <!-- ChromeTest(failed) -->
+</suite> <!-- Failed suite [Suite] -->
