@@ -12,7 +12,6 @@ import java.time.Duration;
 public class SearchHotelPage extends ProjectSpecificationMethods {
 	WebDriver driver;
 
-	// Page Elements - Locators
 	@FindBy(xpath = "//td/select[@id='location']")
 	private WebElement locationDropdown;
 
@@ -52,26 +51,19 @@ public class SearchHotelPage extends ProjectSpecificationMethods {
 	public SearchHotelPage selectLocation(String location) {
 
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-		// Wait until the dropdown is visible
 		WebElement locationDropdown = wait
 				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//select[@id='location']")));
-
-		// Wait until the dropdown contains at least one option
 		wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//select[@id='location']/option"), 1));
-
-		// Select the location
 		Select select = new Select(locationDropdown);
 		select.selectByVisibleText(location);
-
-		return this; // Returning 'this' allows method chaining
+		return this;
 	}
 
 	public SearchHotelPage selectHotel(String hotel) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 		wait.until(ExpectedConditions.visibilityOf(hotelsDropdown));
 
-		for (int i = 0; i < 2; i++) { // Retry once if necessary
+		for (int i = 0; i < 2; i++) {
 			try {
 				new Select(hotelsDropdown).selectByVisibleText(hotel);
 				return this;

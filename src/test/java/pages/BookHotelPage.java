@@ -14,7 +14,6 @@ import java.time.Duration;
 public class BookHotelPage extends ProjectSpecificationMethods {
 	WebDriver driver;
 
-	// Page Elements - Locators
 	@FindBy(id = "first_name")
 	private WebElement firstNameField;
 
@@ -43,68 +42,57 @@ public class BookHotelPage extends ProjectSpecificationMethods {
 	private WebElement bookNowButton;
 
 	@FindBy(id = "order_no")
-	private WebElement orderNumberField; // Order ID generated after booking
+	private WebElement orderNumberField;
 
-	// Constructor
 	public BookHotelPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	// Enter first name
 	public BookHotelPage enterFirstName(String firstName) {
 		firstNameField.sendKeys(firstName);
 		return this;
 	}
 
-	// Enter last name
 	public BookHotelPage enterLastName(String lastName) {
 		lastNameField.sendKeys(lastName);
 		return this;
 	}
 
-	// Enter billing address
 	public BookHotelPage enterBillingAddress(String address) {
 		billingAddressField.sendKeys(address);
 		return this;
 	}
 
-	// Enter credit card number
 	public BookHotelPage enterCreditCardNumber(String cardNumber) {
 		creditCardNumberField.sendKeys(cardNumber);
 		return this;
 	}
 
-	// Select credit card type
 	public BookHotelPage selectCreditCardType(String cardType) {
 		new org.openqa.selenium.support.ui.Select(creditCardTypeDropdown).selectByVisibleText(cardType);
 		return this;
 	}
 
-	// Select expiry month
 	public BookHotelPage selectExpiryMonth(String month) {
 		new org.openqa.selenium.support.ui.Select(expiryMonthDropdown).selectByVisibleText(month);
 		return this;
 	}
 
-	// Select expiry year
 	public BookHotelPage selectExpiryYear(String year) {
 		new org.openqa.selenium.support.ui.Select(expiryYearDropdown).selectByVisibleText(year);
 		return this;
 	}
 
-	// Enter CVV number
 	public BookHotelPage enterCVVNumber(String cvv) {
 		cvvNumberField.sendKeys(cvv);
 		return this;
 	}
 
-	// Click on "Book Now" button
 	public void clickBookNow() {
 		bookNowButton.click();
 	}
 
-	// Wait for order number to be generated and retrieve it
 	public String getOrderNumber() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(orderNumberField));

@@ -27,13 +27,11 @@ public class LoginPage extends ProjectSpecificationMethods {
     @FindBy(xpath = "//span[contains(@class, 'login_error')]")
     private WebElement errorMessage;
 
-    // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    // Methods to perform actions
     public LoginPage enterUsername(String username) {
         usernameField.sendKeys(username);
         return this;
@@ -50,12 +48,12 @@ public class LoginPage extends ProjectSpecificationMethods {
 
     public boolean isLoginSuccessful() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        return wait.until(ExpectedConditions.urlContains("SearchHotel.php"));  // Ensure login is successful
+        return wait.until(ExpectedConditions.urlContains("SearchHotel.php")); 
     }
 
     public boolean isLoginFailed() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed();  // Ensure error message appears
+        return wait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed();
     }
 
 

@@ -16,8 +16,8 @@ public class ProjectSpecificationMethods extends UtilsClass {
 
 	@BeforeMethod
 	@Parameters({ "browser" })
-	public void lauchBrowser(@Optional("Chrome") String browser) { // Provide a default value
-		browserLaunch(browser, "https://adactinhotelapp.com"); // Call method directly from UtilsClass
+	public void lauchBrowser(@Optional("Chrome") String browser) { 
+		browserLaunch(browser, "https://adactinhotelapp.com"); 
 	}
 
 	@DataProvider(name = "excelRead")

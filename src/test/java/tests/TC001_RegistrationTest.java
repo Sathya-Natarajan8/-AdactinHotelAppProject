@@ -11,50 +11,42 @@ import pages.EmailVerificationPage;
 
 public class TC001_RegistrationTest extends ProjectSpecificationMethods {
 
-    @BeforeTest
-    public void setup() {
-        sheetname = "RegistrationTest";
-        testName = "RegistrationTest";
-        testDescription = "Testing the Registration functionality with manual email verification";
-        testAuthor = "Sathya";
-        testCategory = "Functional Testing";
-    }
+	@BeforeTest
+	public void setup() {
+		sheetname = "RegistrationTest";
+		testName = "RegistrationTest";
+		testDescription = "Testing the Registration functionality with manual email verification";
+		testAuthor = "Sathya";
+		testCategory = "Functional Testing";
+	}
 
-    @Test(dataProvider = "excelRead")
-    public void testUserRegistrationAndEmailVerification(String username, String password, String fullName, String email) {
-        HomePage homePage = new HomePage(driver);
+	@Test(dataProvider = "excelRead")
+	public void testUserRegistrationAndEmailVerification(String username, String password, String fullName,
+			String email) {
+		HomePage homePage = new HomePage(driver);
 
-        // Navigate to registration page
-        RegistrationPage registrationPage = homePage.clickRegisterLink();
+		// Navigate to registration page
+		RegistrationPage registrationPage = homePage.clickRegisterLink();
 
-        // Fill in registration form
-        registrationPage.enterUsername(username)
-                .enterPassword(password)
-                .enterConfirmPassword(password)
-                .enterFullName(fullName)
-                .enterEmail(email)
-                .enterCaptchaManually()  // Captcha must be entered manually
-                .checkTermsAndConditions()
-                .clickRegister();
+		// Fill in registration form
+		registrationPage.enterUsername(username).enterPassword(password).enterConfirmPassword(password)
+				.enterFullName(fullName).enterEmail(email).enterCaptchaManually().checkTermsAndConditions()
+				.clickRegister();
 
-        // Ask the user to manually fetch the verification link from Mailinator
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Go to https://www.mailinator.com, check the inbox '" + email + "', and retrieve the verification link.");
-        System.out.print("Enter the verification link here: ");
-        String emailLink = scanner.nextLine();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Go to https://www.mailinator.com, check the inbox '" + email
+				+ "', and retrieve the verification link.");
+		System.out.print("Enter the verification link here: ");
+		String emailLink = scanner.nextLine();
 
-        // Ensure the user has entered a link
-        Assert.assertNotNull(emailLink, "Verification email was not received or link was not provided!");
-        Assert.assertFalse(emailLink.trim().isEmpty(), "Verification link cannot be empty!");
+		Assert.assertNotNull(emailLink, "Verification email was not received or link was not provided!");
+		Assert.assertFalse(emailLink.trim().isEmpty(), "Verification link cannot be empty!");
 
-        // Open the verification link in browser
-        driver.get(emailLink);
+		driver.get(emailLink);
 
-        // Verify success message
-        EmailVerificationPage emailVerificationPage = new EmailVerificationPage(driver);
-        Assert.assertTrue(emailVerificationPage.isEmailVerificationSuccessful(), "Email verification failed!");
+		EmailVerificationPage emailVerificationPage = new EmailVerificationPage(driver);
+		Assert.assertTrue(emailVerificationPage.isEmailVerificationSuccessful(), "Email verification failed!");
 
-        // Click login link after verification
-        emailVerificationPage.clickLoginLink();
-    }
+		emailVerificationPage.clickLoginLink();
+	}
 }

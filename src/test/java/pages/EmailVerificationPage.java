@@ -26,7 +26,7 @@ public class EmailVerificationPage extends ProjectSpecificationMethods {
     }
 
     public boolean isEmailVerificationSuccessful() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Increased from 10 to 20 seconds
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(verificationSuccessMessage));
         return verificationSuccessMessage.isDisplayed();
     }

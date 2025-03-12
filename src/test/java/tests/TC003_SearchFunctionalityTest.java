@@ -11,49 +11,38 @@ import pages.SelectHotelPage;
 
 public class TC003_SearchFunctionalityTest extends ProjectSpecificationMethods {
 
-    @BeforeTest
-    public void setup() {
-        sheetname = "SearchHotelTest";  // Sheet name in Excel
-        testName = "Search Hotel Test";
-        testDescription = "Testing the search hotel functionality using Excel data";
-        testAuthor = "Sathya";
-        testCategory = "Functional Testing";
-    }
-        
-     public void loginBeforeTest() {
-            LoginPage loginPage = new LoginPage(driver);
-            loginPage.enterUsername("yourUsername")
-                     .enterPassword("yourPassword")
-                     .clickLogin();
-        }
+	@BeforeTest
+	public void setup() {
+		sheetname = "SearchHotelTest";
+		testName = "Search Hotel Test";
+		testDescription = "Testing the search hotel functionality using Excel data";
+		testAuthor = "Sathya";
+		testCategory = "Functional Testing";
+	}
 
-    @Test(dataProvider = "excelRead")
-    public void testSearchHotel(
-            String location, String hotel, String roomType, String numberOfRooms, 
-            String checkInDate, String checkOutDate, String adults, String children) {
+	public void loginBeforeTest() {
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.enterUsername("yourUsername").enterPassword("yourPassword").clickLogin();
+	}
 
-        SearchHotelPage searchHotelPage = new SearchHotelPage(driver);
+	@Test(dataProvider = "excelRead")
+	public void testSearchHotel(String location, String hotel, String roomType, String numberOfRooms,
+			String checkInDate, String checkOutDate, String adults, String children) {
 
-        // Fill in the search form
-        SelectHotelPage selectHotelPage = searchHotelPage
-                .selectLocation(location)
-                .selectHotel(hotel)
-                .selectRoomType(roomType)
-                .selectNumberOfRooms(numberOfRooms)
-                .enterCheckInDate(checkInDate)
-                .enterCheckOutDate(checkOutDate)
-                .selectAdultsPerRoom(adults)
-                .selectChildrenPerRoom(children)
-                .clickSearch();
+		SearchHotelPage searchHotelPage = new SearchHotelPage(driver);
 
-        // Verify that the hotel selection page is displayed
-        Assert.assertTrue(selectHotelPage.isHotelSelectionSuccessful(), "Hotel selection page did not load properly!");
-    }
-    
-    @AfterTest
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(5000);  // Delay so you can see the page
-        driver.quit();
-    }
+		SelectHotelPage selectHotelPage = searchHotelPage.selectLocation(location).selectHotel(hotel)
+				.selectRoomType(roomType).selectNumberOfRooms(numberOfRooms).enterCheckInDate(checkInDate)
+				.enterCheckOutDate(checkOutDate).selectAdultsPerRoom(adults).selectChildrenPerRoom(children)
+				.clickSearch();
+
+		Assert.assertTrue(selectHotelPage.isHotelSelectionSuccessful(), "Hotel selection page did not load properly!");
+	}
+
+	@AfterTest
+	public void tearDown() throws InterruptedException {
+		Thread.sleep(5000);
+		driver.quit();
+	}
 
 }
